@@ -9,6 +9,6 @@ const app = express()
 app.use(express.json())
 app.use(cors()) 
 
-app.get('/',(req,res)=>res.send("API Working"))
+app.get('/',(req,res)=>res.send("API Working Fine"))
 
 app.listen(PORT, ()=> console.log('Server running on port ' + PORT));
