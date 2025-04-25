@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 import { motion } from "motion/react"
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -24,14 +25,25 @@ const Login = () => {
        if(data.success){
            setToken(data.token)
            setUser(data.user)
-           localStorage.getItem('token', data.token)
+           localStorage.setItem('token', data.token)
            setShowLogin(false)
        }else{
-        
+        toast.error(data.message)
+       }
+      }else{
+        const {data} = await axios.post(backendUrl + '/api/user/register', {name,email,password})
+
+       if(data.success){
+           setToken(data.token)
+           setUser(data.user)
+           localStorage.setItem('token', data.token)
+           setShowLogin(false)
+       }else{
+        toast.error(data.message)
        }
       }
     } catch (error) {
-      
+      toast.error(error.message)
     }
   }
 
